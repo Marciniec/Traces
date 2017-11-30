@@ -1,5 +1,7 @@
 package Language;
 
+import FoataNormalFormUtils.FoataNormalForm;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +15,9 @@ public class Main {
         System.out.println(alphabet);
         Independence independence = new Independence(Arrays.asList(new Tuple("a", "d"),
                 new Tuple("d", "a"), new Tuple("b", "c"), new Tuple("c", "b")));
-        new Dependence().computeDependency(independence.getIndependenceList(),alphabet.getCartesianProduct());
-
+        Dependence dependence = new Dependence();
+        dependence.computeDependency(independence.getIndependenceList(), alphabet.getCartesianProduct());
+        FoataNormalForm foataNormalForm = new FoataNormalForm(Arrays.asList("baadcb".split("")),dependence );
+        System.out.println(foataNormalForm.getFoataSteps());
     }
 }

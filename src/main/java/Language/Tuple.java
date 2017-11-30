@@ -18,6 +18,7 @@ public class Tuple {
         return y;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Tuple && ((Tuple) obj).getX().equals(this.x) && ((Tuple) obj).getY().equals(this.y);
