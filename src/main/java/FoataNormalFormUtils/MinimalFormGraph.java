@@ -22,7 +22,6 @@ public class MinimalFormGraph {
         this.dependence = dependence;
         this.foataNormalForm = new StringBuilder();
         makeMinimalFormGraph();
-        calculateFoataNormalFormFromGraph();
 
     }
 
@@ -46,6 +45,7 @@ public class MinimalFormGraph {
 
 
     public String getFoataNormalForm() {
+        calculateFoataNormalFormFromGraph();
         return foataNormalForm.toString();
     }
 
