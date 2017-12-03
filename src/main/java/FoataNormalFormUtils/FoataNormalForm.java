@@ -6,19 +6,20 @@ import java.util.*;
 
 
 public class FoataNormalForm {
-    Map<String, Stack> lettersStacks;
-    List<String> word;
-    Dependence dependence;
-    String foataSteps;
+    private Map<String, Stack> lettersStacks;
+    private List<String> word;
+    private Dependence dependence;
+    private String foataSteps;
+
     public FoataNormalForm(List<String> word, Dependence dependence) {
         this.word = word;
         this.dependence = dependence;
         lettersStacks = new HashMap<>();
-        foataSteps = new String();
+        foataSteps = "";
         computeFoataNormalFormSteps();
     }
 
-    private void letterStackInit(){
+    private void letterStackInit() {
         for (String letter :
                 word) {
             lettersStacks.put(letter, new Stack());
@@ -29,7 +30,7 @@ public class FoataNormalForm {
         return foataSteps;
     }
 
-    private void computeFoataNormalFormSteps(){
+    private void computeFoataNormalFormSteps() {
         letterStackInit();
         fillLetterStack();
         while (isNotAllEmpty()) {
@@ -42,16 +43,17 @@ public class FoataNormalForm {
                     lettersFromTop) {
                 popAsterisksFromNotCommute(letter);
             }
-            if(lettersFromTop.isEmpty()){
+            if (lettersFromTop.isEmpty()) {
                 lettersStacks.values().forEach(Stack::pop);
             }
         }
     }
 
-    private Boolean isNotAllEmpty(){
+    private Boolean isNotAllEmpty() {
         return lettersStacks.values().stream().anyMatch(stack -> !stack.isEmpty());
     }
-    private void addFoataSteps(List<String> letters){
+
+    private void addFoataSteps(List<String> letters) {
         Collections.sort(letters);
         StringBuilder sb = new StringBuilder(foataSteps);
         sb.append("(");
@@ -63,30 +65,31 @@ public class FoataNormalForm {
         foataSteps = sb.toString();
     }
 
-    private void fillLetterStack(){
+    private void fillLetterStack() {
         Collections.reverse(word);
         for (String letter :
-             word) {
+                word) {
             lettersStacks.get(letter).push(letter);
             pushAsterisksToNotCommute(letter);
         }
     }
 
-    private void pushAsterisksToNotCommute(String letter){
+    private void pushAsterisksToNotCommute(String letter) {
         List<String> dependentTo = dependence.retrieveAllDependentTo(letter);
-        for (String dependentLetter:
-             dependentTo) {
-            if(!dependentLetter.equals(letter)) {
+        for (String dependentLetter :
+                dependentTo) {
+            if (!dependentLetter.equals(letter)) {
                 lettersStacks.get(dependentLetter).push("*");
             }
         }
     }
 
-    private void popAsterisksFromNotCommute(String letter){
+
+    private void popAsterisksFromNotCommute(String letter) {
         List<String> dependentTo = dependence.retrieveAllDependentTo(letter);
-        for (String dependentLetter:
+        for (String dependentLetter :
                 dependentTo) {
-            if(!dependentLetter.equals(letter)) {
+            if (!dependentLetter.equals(letter)) {
                 lettersStacks.get(dependentLetter).pop();
             }
         }

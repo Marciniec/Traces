@@ -8,7 +8,7 @@ public class Stack {
     private List<String> letterStack;
 
     Stack() {
-        letterStack = new ArrayList<String>();
+        letterStack = new ArrayList<>();
     }
 
     public void push(String element) {
@@ -24,6 +24,6 @@ public class Stack {
         return letterStack.isEmpty();
     }
     public Boolean isTopALetter(){
-        return !Objects.equals(letterStack.get(letterStack.size() - 1), "*");
+        return !isEmpty() && !Objects.equals(letterStack.get(letterStack.size() - 1), "*");
     }
 }
